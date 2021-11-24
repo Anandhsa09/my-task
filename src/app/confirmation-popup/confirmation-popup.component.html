@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmation</h1>
+<mat-dialog-content>
+    <p>Are you you want to delete the Record?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button (click)="confirm()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

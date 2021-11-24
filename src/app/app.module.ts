@@ -11,11 +11,15 @@ import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UserCreationComponent } from './user-creation/user-creation.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserCreationComponent
+    UserCreationComponent,
+    ConfirmationPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,10 @@ import { UserCreationComponent } from './user-creation/user-creation.component';
     MatButtonModule,
     MatTableModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
