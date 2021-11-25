@@ -14,12 +14,14 @@ import { UserCreationComponent } from './user-creation/user-creation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserCreationComponent,
-    ConfirmationPopupComponent
+    ConfirmationPopupComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     BrowserModule,

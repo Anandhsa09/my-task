@@ -93,30 +93,30 @@ export class AppComponent implements OnInit {
   }
 
   editUser(user: any) {
-    const dialogRef = this.dialog.open(UserCreationComponent, {
+    const editDialogRef = this.dialog.open(UserCreationComponent, {
       data: user
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result, 'result');
+    editDialogRef.afterClosed().subscribe(result => {
+      console.log(result, 'result edit');
       if (result) {
-        // this.dataSource.data = [];
-        // this.userList.push({
-        //   name: result.userDetail.firstName + '' + result.userDetail.lastName,
-        //   email: result.userDetail.email,
-        //   mobile: result.userDetail.mobile,
-        //   address: result.userDetail.address,
-        //   lat: '4543',
-        //   lang: '435345346',
-        //   country: result.userDetail.country,
-        //   state: result.userDetail.state,
-        //   city: result.userDetail.city,
-        //   firstName: result.userDetail.firstName,
-        //   lastName: result.userDetail.lastName
-        // })
-        // this.userList.forEach((item: any, index: number) => {
-        //   item.userId = index + 1;
-        // });
-        // this.dataSource = this.userList;
+
+        this.dataSource.data = [];
+        this.userList.forEach((item: any) => {
+          if (item.userId === result.userDetail.userId) {
+            item.name = result.userDetail.firstName + '' + result.userDetail.lastName;
+            item.email = result.userDetail.email;
+            item.mobile = result.userDetail.mobile;
+            item.address = result.userDetail.address;
+            item.lat = '34324';
+            item.lang = '534534543';
+            item.country = result.userDetail.country;
+            item.state = result.userDetail.state;
+            item.city = result.userDetail.city;
+            item.firstName = result.userDetail.firstName;
+            item.lastName = result.userDetail.lastName;
+          }
+        });
+        this.dataSource = this.userList;
       }
     });
   }

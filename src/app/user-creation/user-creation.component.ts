@@ -21,6 +21,7 @@ export class UserCreationComponent implements OnInit {
   cityList: any = [];
   stateByCountry: any = [];
   cityByState: any = [];
+  isEdit = false;
   constructor(public dialogRef: MatDialogRef<UserCreationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, private addressServiceService: AddressServiceService) { }
 
@@ -48,21 +49,41 @@ export class UserCreationComponent implements OnInit {
     if (this.contactForm.invalid) {
       return;
     }
-    const userDetail = {
-      firstName : this.contactForm.value.firstName,
-      lastName : this.contactForm.value.lastName,
-      email : this.contactForm.value.email,
-      mobile : this.contactForm.value.mobile,
-      address : this.contactForm.value.address,
-      country : this.contactForm.value.country,
-      state : this.contactForm.value.state,
-      city : this.contactForm.value.city
+    if (this.data === null) {
+      const userDetail = {
+        firstName: this.contactForm.value.firstName,
+        lastName: this.contactForm.value.lastName,
+        email: this.contactForm.value.email,
+        mobile: this.contactForm.value.mobile,
+        address: this.contactForm.value.address,
+        country: this.contactForm.value.country,
+        state: this.contactForm.value.state,
+        city: this.contactForm.value.city
+      }
+      const userObj = {
+        flag: true,
+        userDetail
+      }
+      this.dialogRef.close(userObj);
+    } else {
+      const userDetail = {
+        firstName: this.contactForm.value.firstName,
+        lastName: this.contactForm.value.lastName,
+        email: this.contactForm.value.email,
+        mobile: this.contactForm.value.mobile,
+        address: this.contactForm.value.address,
+        country: this.contactForm.value.country,
+        state: this.contactForm.value.state,
+        city: this.contactForm.value.city,
+        userId: this.data.userId
+      }
+      const userObj = {
+        flag: true,
+        userDetail
+      }
+      this.dialogRef.close(userObj);
     }
-    const userObj = {
-      flag : true,
-      userDetail
-    }
-    this.dialogRef.close(userObj);
+
   }
 
   get f() {
@@ -95,7 +116,7 @@ export class UserCreationComponent implements OnInit {
       }
     });
   }
-  
+
   getCity() {
     this.addressServiceService.getCity().subscribe((res: any) => {
       if (res) {
@@ -117,11 +138,12 @@ export class UserCreationComponent implements OnInit {
 
   getCityByState(event: any) {
     const userID = event.target.value;
-    this.cityByState = this.cityList.filter((item:any) => item.stateId === +userID);
+    this.cityByState = this.cityList.filter((item: any) => item.stateId === +userID);
   }
 
   bindData() {
     if (this.data !== null) {
+      this.isEdit = true;
       this.contactForm.patchValue({
         firstName: this.data.firstName,
         lastName: this.data.lastName,
@@ -129,11 +151,13 @@ export class UserCreationComponent implements OnInit {
         email: this.data.email,
         address: this.data.address,
         country: +this.data.country
-      }); 
+      });
       setTimeout(() => {
         this.bindStateByCountry(this.data.country);
       }, 2000);
-      
+
+    } else {
+      this.isEdit = false;
     }
   }
 
@@ -146,7 +170,7 @@ export class UserCreationComponent implements OnInit {
   }
 
   bindCityByState(stateId: any) {
-    this.cityByState = this.cityList.filter((item:any) => item.stateId === +stateId);
+    this.cityByState = this.cityList.filter((item: any) => item.stateId === +stateId);
     this.contactForm.patchValue({
       city: +this.data.city
     })

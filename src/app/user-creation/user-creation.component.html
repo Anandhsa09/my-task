@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Add User</h2>
+<h2 *ngIf="!isEdit" mat-dialog-title>Add User</h2>
+<h2 *ngIf="isEdit" mat-dialog-title>Edit User</h2>
 <mat-dialog-content class="mat-typography">
     <form [formGroup]="contactForm">
         <div class="row">
@@ -21,7 +22,7 @@
             <div class="col-sm-3 form-group">
                 <label class="form-label">Mobile Number</label>
                 <input type="text" maxlength="10" class="form-control" placeholder="Mobile Number" formControlName="mobile"
-                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }">
+                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" appNumbersOnly>
                 <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
                     <div *ngIf="f.mobile.errors.required">Mobile is required</div>
                     <div *ngIf="f.mobile.errors.minlength">Mobile number must be 10 digit</div>
